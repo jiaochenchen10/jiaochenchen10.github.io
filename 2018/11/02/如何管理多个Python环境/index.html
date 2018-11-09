@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用One">
+  <meta name="description" content="这是一篇Python环境管理教程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何管理多个Python环境">
 <meta property="og:url" content="https://jiaochenchen10.github.io/2018/11/02/如何管理多个Python环境/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用One">
+<meta property="og:description" content="这是一篇Python环境管理教程">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://jiaochenchen10.github.io/upload_image/python.jpg">
-<meta property="og:updated_time" content="2018-11-09T07:05:02.799Z">
+<meta property="og:updated_time" content="2018-11-09T11:22:34.235Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何管理多个Python环境">
-<meta name="twitter:description" content="在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用One">
+<meta name="twitter:description" content="这是一篇Python环境管理教程">
 <meta name="twitter:image" content="https://jiaochenchen10.github.io/upload_image/python.jpg">
 
 
@@ -341,7 +341,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Updated at: 2018-11-09 15:05:02" itemprop="dateModified" datetime="2018-11-09T15:05:02+08:00">2018-11-09</time>
+                <time title="Updated at: 2018-11-09 19:22:34" itemprop="dateModified" datetime="2018-11-09T19:22:34+08:00">2018-11-09</time>
               
             
           </span>
@@ -375,7 +375,9 @@
 
       
         <p><img src="\upload_image\python.jpg" alt="python"></p>
-<p>在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用OneNote，记录自己的每次操作，在不断试错之后，终于发现一点门道，但缺乏系统性。偶然在Medium上看到一篇博文，总结的很好。有鉴于此，此片博文旨在为为Python版本管理发愁的小伙伴提供帮助。</p>
+<blockquote>
+<p>这是一篇Python环境管理教程<br><a id="more"></a><br>在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用OneNote，记录自己的每次操作，在不断试错之后，终于发现一点门道，但缺乏系统性。偶然在Medium上看到一篇博文，总结的很好。有鉴于此，此片博文旨在为为Python版本管理发愁的小伙伴提供帮助。</p>
+</blockquote>
 <h2 id="为什么需要管理Python版本，只要最新不行吗？"><a href="#为什么需要管理Python版本，只要最新不行吗？" class="headerlink" title="为什么需要管理Python版本，只要最新不行吗？"></a>为什么需要管理Python版本，只要最新不行吗？</h2><p>当你兴致勃勃地入坑了Python，想要在自己的领域里一展拳脚，于是你安装了Python的最新版本，无论是爬虫、ML、DL，还是GUI、Web前后端，都有很多资源都可利用，可是别人的程序就是在自己的电脑无法运行。仔细纠错终于发现包，python，框架，应用无法兼容，真是让人头大，于是你来到这里。</p>
 <h2 id="选择适合自己的Conda"><a href="#选择适合自己的Conda" class="headerlink" title="选择适合自己的Conda"></a>选择适合自己的Conda</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><p>对于个人开发者，有两种选择：</p>
 <ul>
@@ -508,10 +510,6 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/09/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
       
@@ -580,7 +578,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
