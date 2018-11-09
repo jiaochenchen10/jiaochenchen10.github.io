@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用One">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何管理多个Python环境">
+<meta property="og:url" content="http://yoursite.com/2018/11/02/如何管理多个Python环境/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用One">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/upload_image/python.jpg">
+<meta property="og:updated_time" content="2018-11-09T07:05:02.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何管理多个Python环境">
+<meta name="twitter:description" content="在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用One">
+<meta name="twitter:image" content="http://yoursite.com/upload_image/python.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/02/如何管理多个Python环境/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>如何管理多个Python环境 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/jiaochenchen10"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/如何管理多个Python环境/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何管理多个Python环境
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-02 21:45:29" itemprop="dateCreated datePublished" datetime="2018-11-02T21:45:29+08:00">2018-11-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-09 15:05:02" itemprop="dateModified" datetime="2018-11-09T15:05:02+08:00">2018-11-09</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="\upload_image\python.jpg" alt="python"></p>
+<p>在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用OneNote，记录自己的每次操作，在不断试错之后，终于发现一点门道，但缺乏系统性。偶然在Medium上看到一篇博文，总结的很好。有鉴于此，此片博文旨在为为Python版本管理发愁的小伙伴提供帮助。</p>
+<h2 id="为什么需要管理Python版本，只要最新不行吗？"><a href="#为什么需要管理Python版本，只要最新不行吗？" class="headerlink" title="为什么需要管理Python版本，只要最新不行吗？"></a>为什么需要管理Python版本，只要最新不行吗？</h2><p>当你兴致勃勃地入坑了Python，想要在自己的领域里一展拳脚，于是你安装了Python的最新版本，无论是爬虫、ML、DL，还是GUI、Web前后端，都有很多资源都可利用，可是别人的程序就是在自己的电脑无法运行。仔细纠错终于发现包，python，框架，应用无法兼容，真是让人头大，于是你来到这里。</p>
+<h2 id="选择适合自己的Conda"><a href="#选择适合自己的Conda" class="headerlink" title="选择适合自己的Conda"></a>选择适合自己的Conda</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><p>对于个人开发者，有两种选择：</p>
+<ul>
+<li><a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">Anaconda</a> （free）</li>
+<li><a href="https://conda.io/miniconda.html" target="_blank" rel="noopener">Miniconda</a>（free）</li>
+</ul>
+<p>这两种工具在安装完成时都会为我们提供：</p>
+<ul>
+<li>Conda —包与环境管理系统。</li>
+<li>root（base）environment —默认Python环境。</li>
+</ul>
+<p>不同点在于：</p>
+<ul>
+<li>Miniconda只需要400MB存储空间，包含一些基础的扩展包。</li>
+<li>Anaconda需要4GB存储空间，在默认python环境中安装超过150个扩展包。此外还提供Anaconda Navigator的用户界面用以管理各扩展包和环境。</li>
+</ul>
+<h3 id="2-Python版本与环境"><a href="#2-Python版本与环境" class="headerlink" title="2. Python版本与环境"></a>2. Python版本与环境</h3><p>在下载安装时可以选择包含某一版本Python的Anaconda，也可以下载最新版本的Anaconda或者Miniconda，再创建自己所需的Python环境，它与默认的环境完全不会冲突，而且新创建的各种版本的Python环境也不会冲突，它们是完全分隔的。</p>
+<p>在开始菜单中找到<code>Anaconda Prompt</code>，打开后，此时的一切操作都是在默认环境（base/root environment）中进行。</p>
+<p>查看当前python版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python --version</span><br><span class="line"></span><br><span class="line">Python 3.6.3 :: Anaconda custom (64-bit)</span><br></pre></td></tr></table></figure>
+<h2 id="Anaconda目录结构"><a href="#Anaconda目录结构" class="headerlink" title="Anaconda目录结构"></a>Anaconda目录结构</h2><p>打开Anaconda安装目录（博主的安装路径是：D:\Anaconda3)，可以找到以下文件：</p>
+<ul>
+<li><code>\pkg</code> 包括一些以压缩格式和未压缩格式存储的缓存包。</li>
+<li><code>\env</code> 以独立的文件保存各个Python环境，不包括默认Python环境。</li>
+</ul>
+<p>假设我们已经额外创建了某一版本的Python环境，介绍一些位于<code>\envs\environmentnames</code>目录下比较重要的可执行文件和目录：</p>
+<ul>
+<li><p><code>\python.exe</code> 在命令行中应用中使用，如<code>python.exe exampleapp.py</code>,在运行的时候，会弹出一个黑色的控制台窗口，也叫命令行窗口、DOS/CMD窗口。</p>
+</li>
+<li><p><code>pythonw.exe</code>用来执行纯图形界面程序，是无窗口的Python可执行程序，在程序运行时，没有窗口，代码在后台执行。如<code>pythonw.exe exampleapp.pwy</code>。</p>
+</li>
+<li><p><code>\Scripts\activae.exe</code>用来激活某一Python环境。</p>
+</li>
+</ul>
+<h2 id="管理环境：GUI-还是Command-line-Terminal"><a href="#管理环境：GUI-还是Command-line-Terminal" class="headerlink" title="管理环境：GUI 还是Command line(Terminal)"></a>管理环境：GUI 还是Command line(Terminal)</h2><p>  偏好Anaconda的小伙伴可以使用Anaconda Navigator，使用Miniconda的就只能通过命令行来管理环境了。下面重点介绍如何通过命令行来管理Python环境。建议阅读官方文档 <a href="https://conda.io/docs/_downloads/conda-cheatsheet.pdf" target="_blank" rel="noopener">Conda cheat sheet</a>，包含了下面即将介绍的各条命令。</p>
+<p>添加一个名为MyNewEnv新的环境，以python3.4为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name MyNewEnv python=3.4</span><br></pre></td></tr></table></figure>
+<p>虽然此时我们添加了python3.4的环境，但是此环境的Python版本是随时可以改变的。在关于管理包的部分中会展示如何修改python版本。</p>
+<h3 id="1-激活-退出环境"><a href="#1-激活-退出环境" class="headerlink" title="1. 激活/退出环境"></a>1. 激活/退出环境</h3><p>如前所述，进入<code>Anaconda Prompt</code>后，<code>base environment</code>默认是激活的。当已经创建了MyNewEnv环境之后，以激活<code>MyNewEnv</code>为例</p>
+<ul>
+<li>Windows</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activate MyNewEnv</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Linux 或者Mac OS X</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source activate MyNewEnv</span><br></pre></td></tr></table></figure>
+<p>退出当前环境</p>
+<ul>
+<li>Windows</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
+<p>Linux 或者Mac OS X<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source deactivate</span><br></pre></td></tr></table></figure></p>
+<p>查看所有环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env list</span><br></pre></td></tr></table></figure>
+<h3 id="2-查看Conda版本"><a href="#2-查看Conda版本" class="headerlink" title="2. 查看Conda版本"></a>2. 查看Conda版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda --version</span><br></pre></td></tr></table></figure>
+<h3 id="3-查看conda详细信息"><a href="#3-查看conda详细信息" class="headerlink" title="3.  查看conda详细信息"></a>3.  查看conda详细信息</h3><p>包含：</p>
+<ul>
+<li>conda版本</li>
+<li>操作系统，如Win-64</li>
+<li>python版本</li>
+<li>环境目录</li>
+<li>渠道地址（下节介绍，可以看到channel URL的前四行都是来源于清华镜像，之后才是Anaconda默认的渠道）</li>
+<li>用户配置文件路径（C:\Users\jc.condarc，文件内包含渠道地址-channel url）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">(base) C:\Users\jc&gt;conda info</span><br><span class="line">  active environment : base</span><br><span class="line">    active env location : D:\Users\jc\Anaconda3</span><br><span class="line">            shell level : 1</span><br><span class="line">       user config file : C:\Users\jc\.condarc</span><br><span class="line"> populated config files : C:\Users\jc\.condarc</span><br><span class="line">          conda version : 4.5.11</span><br><span class="line">    conda-build version : 3.0.27</span><br><span class="line">         python version : 3.6.3.final.0</span><br><span class="line">       base environment : D:\Users\jc\Anaconda3  (writable)</span><br><span class="line">           channel URLs : https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/win-64</span><br><span class="line">                          https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/noarch</span><br><span class="line">                          https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/win-64</span><br><span class="line">                          https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/noarch</span><br><span class="line">                          https://repo.anaconda.com/pkgs/main/win-64</span><br><span class="line">                          https://repo.anaconda.com/pkgs/main/noarch</span><br><span class="line">                          https://repo.anaconda.com/pkgs/free/win-64</span><br><span class="line">                          https://repo.anaconda.com/pkgs/free/noarch</span><br><span class="line">                          https://repo.anaconda.com/pkgs/r/win-64</span><br><span class="line">                          https://repo.anaconda.com/pkgs/r/noarch</span><br><span class="line">                          https://repo.anaconda.com/pkgs/pro/win-64</span><br><span class="line">                          https://repo.anaconda.com/pkgs/pro/noarch</span><br><span class="line">                          https://repo.anaconda.com/pkgs/msys2/win-64</span><br><span class="line">                          https://repo.anaconda.com/pkgs/msys2/noarch</span><br><span class="line">          package cache : D:\Users\jc\Anaconda3\pkgs</span><br><span class="line">                          C:\Users\jc\AppData\Local\conda\conda\pkgs</span><br><span class="line">       envs directories : D:\Users\jc\Anaconda3\envs</span><br><span class="line">                          C:\Users\jc\AppData\Local\conda\conda\envs</span><br><span class="line">                          C:\Users\jc\.conda\envs</span><br><span class="line">               platform : win-64</span><br><span class="line">             user-agent : conda/4.5.11 requests/2.18.4 CPython/3.6.3 Windows/10 Windows/10.0.17134</span><br><span class="line">          administrator : False</span><br><span class="line">             netrc file : None</span><br><span class="line">           offline mode : False</span><br></pre></td></tr></table></figure>
+<h2 id="管理包"><a href="#管理包" class="headerlink" title="管理包"></a>管理包</h2><h3 id="1-获取包的渠道"><a href="#1-获取包的渠道" class="headerlink" title="1.  获取包的渠道"></a>1.  获取包的渠道</h3><p>可以把渠道理解为一个个的仓库，各种包有组织地堆积在仓库中，每个仓库可能有相同的包，也有不同的包。每个渠道都有各自的优先级，优先级越高，安装包时越先查找。当使用conda install命令时，首先会在默认渠道内寻找包的信息，但是有些渠道用国内的网络很难获取（可能跟Anaconda服务器有关），而有些包并不在默认的渠道内。解决这2个问题也很简单：清华镜像站。</p>
+<p><a href="https://mirror.tuna.tsinghua.edu.cn/help/anaconda/" target="_blank" rel="noopener">TUNA</a> 提供了Anaconda的镜像，打开<code>Anaconda Prompt</code>运行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
+<p>如此大多数包都可以轻易下载安装，<strong>对于不在镜像渠道内的包，直接使用pip进行安装</strong>。</p>
+<h3 id="1-搜索，安装和移除包"><a href="#1-搜索，安装和移除包" class="headerlink" title="1.  搜索，安装和移除包"></a>1.  搜索，安装和移除包</h3><p>在当前Python环境下（默认环境，或者使用activate命令激活，由用户自己添加的环境），列出所有已安装包，包括每个包的名称，版本以及通道来源信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(base) C:\Users&gt;conda list</span><br><span class="line"># packages in environment at D:\Users\jc\Anaconda3:</span><br><span class="line">#</span><br><span class="line"># Name                    Version                   Build  Channel</span><br><span class="line">_ipyw_jlab_nb_ext_conf    0.1.0            py36he6757f0_0    defaults</span><br><span class="line">absl-py                   0.2.2                    py36_0    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">alabaster                 0.7.10           py36hcd07829_0    defaults</span><br><span class="line">anaconda                  custom                   py36_0    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free</span><br><span class="line">anaconda-client           1.6.14                   py36_0    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">anaconda-navigator        1.9.2                    py36_0    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">anaconda-project          0.8.0            py36h8b3bf89_0    defaults</span><br></pre></td></tr></table></figure>
+<p>搜索某个包的所有版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(base) C:\Users&gt;conda search -f seaborn</span><br><span class="line">Loading channels: done</span><br><span class="line"># Name                  Version           Build  Channel</span><br><span class="line">seaborn                   0.5.0      np19py27_0  anaconda/pkgs/free</span><br><span class="line">seaborn                   0.5.0      np19py27_0  pkgs/free</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">seaborn                   0.9.0          py37_0  anaconda/pkgs/main</span><br><span class="line">seaborn                   0.9.0          py37_0  pkgs/main</span><br></pre></td></tr></table></figure>
+<p>安装最新版本的包，以seaborn为例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install seaborn</span><br></pre></td></tr></table></figure>
+<p>指定某个版本进行安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install seaborn=0.7.0</span><br></pre></td></tr></table></figure>
+<p>更新所有包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update</span><br></pre></td></tr></table></figure>
+<p>更新某个包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update seaborn</span><br></pre></td></tr></table></figure>
+<p>移除包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove seaborn</span><br></pre></td></tr></table></figure>
+<h3 id="3-更改Python版本"><a href="#3-更改Python版本" class="headerlink" title="3. 更改Python版本"></a>3. 更改Python版本</h3><p>首先，先看看Python都有哪些版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(base) C:\Users&gt;conda search -f python</span><br><span class="line">Loading channels: done</span><br><span class="line"># Name                  Version           Build  Channel</span><br><span class="line">python                    2.6.8               5  anaconda/pkgs/free</span><br><span class="line">python                    2.6.8               5  pkgs/free</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">python                    3.7.1      h33f27b4_3  anaconda/pkgs/main</span><br><span class="line">python                    3.7.1      h33f27b4_3  pkgs/main</span><br><span class="line">python                    3.7.1      h33f27b4_4  anaconda/pkgs/main</span><br><span class="line">python                    3.7.1      h33f27b4_4  pkgs/main</span><br></pre></td></tr></table></figure>
+<p>在当前环境下安装Python3.4.2版本，替换掉现有版本（不管现有的是哪个版本）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install python=3.4.2</span><br></pre></td></tr></table></figure>
+<p>在当前环境下更新到最新版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda update python</span><br></pre></td></tr></table></figure>
+<h3 id="4-什么时候使用pip"><a href="#4-什么时候使用pip" class="headerlink" title="4. 什么时候使用pip"></a>4. 什么时候使用pip</h3><p>如前所述，使用conda可以方便快捷地实现大多数功能，但是对于不在conda所管理的渠道内的包，就要使用pip进行安装（看来任何东西都是尺有所短寸有所长）。</p>
+<h2 id="相关资源推荐（需翻墙）"><a href="#相关资源推荐（需翻墙）" class="headerlink" title="相关资源推荐（需翻墙）"></a>相关资源推荐（需翻墙）</h2><p>有关服务器和分布式的入门：</p>
+<p><a href="https://medium.freecodecamp.org/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b" target="_blank" rel="noopener">A Beginner-Friendly Introduction to Containers, VMs and Docker</a></p>
+<p><a href="https://djangostars.com/blog/what-is-docker-and-how-to-use-it-with-python/" target="_blank" rel="noopener">What is Docker and How to Use it With Python (Tutorial)</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://medium.freecodecamp.org/why-you-need-python-environments-and-how-to-manage-them-with-conda-85f155f4353c" target="_blank" rel="noopener">Why you need Python environments and how to manage them with Conda</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+      <div>        
+        
+          
+        
+      </div>
+    
+
+    
+
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/27/Jupyter-Notebook实用技巧/" rel="next" title="Jupyter Notebooks使用技巧">
+                <i class="fa fa-chevron-left"></i> Jupyter Notebooks使用技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/09/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要管理Python版本，只要最新不行吗？"><span class="nav-number">1.</span> <span class="nav-text">为什么需要管理Python版本，只要最新不行吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择适合自己的Conda"><span class="nav-number">2.</span> <span class="nav-text">选择适合自己的Conda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装"><span class="nav-number">2.1.</span> <span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Python版本与环境"><span class="nav-number">2.2.</span> <span class="nav-text">2. Python版本与环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anaconda目录结构"><span class="nav-number">3.</span> <span class="nav-text">Anaconda目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理环境：GUI-还是Command-line-Terminal"><span class="nav-number">4.</span> <span class="nav-text">管理环境：GUI 还是Command line(Terminal)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-激活-退出环境"><span class="nav-number">4.1.</span> <span class="nav-text">1. 激活/退出环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查看Conda版本"><span class="nav-number">4.2.</span> <span class="nav-text">2. 查看Conda版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-查看conda详细信息"><span class="nav-number">4.3.</span> <span class="nav-text">3.  查看conda详细信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理包"><span class="nav-number">5.</span> <span class="nav-text">管理包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-获取包的渠道"><span class="nav-number">5.1.</span> <span class="nav-text">1.  获取包的渠道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-搜索，安装和移除包"><span class="nav-number">5.2.</span> <span class="nav-text">1.  搜索，安装和移除包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-更改Python版本"><span class="nav-number">5.3.</span> <span class="nav-text">3. 更改Python版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-什么时候使用pip"><span class="nav-number">5.4.</span> <span class="nav-text">4. 什么时候使用pip</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关资源推荐（需翻墙）"><span class="nav-number">6.</span> <span class="nav-text">相关资源推荐（需翻墙）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+
+  
+</div>
+
+
+
+<!-- 此处注释掉两段代码，隐藏掉网页底部信息 -->
+<!-- 
+
+ <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Pisces</a> v6.4.2</div>
+
+-->
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
