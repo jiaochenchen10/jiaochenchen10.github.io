@@ -108,20 +108,26 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用One">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何管理多个Python环境">
+<meta property="og:url" content="http://yoursite.com/2018/11/02/如何管理多个Python环境/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用One">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/upload_image/python.jpg">
+<meta property="og:updated_time" content="2018-11-09T07:05:02.799Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="如何管理多个Python环境">
+<meta name="twitter:description" content="在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用One">
+<meta name="twitter:image" content="http://yoursite.com/upload_image/python.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/02/如何管理多个Python环境/">
 
 
 
@@ -131,7 +137,7 @@
   };
 </script>
 
-  <title>Hexo</title>
+  <title>如何管理多个Python环境 | Hexo</title>
   
 
 
@@ -178,8 +184,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -216,7 +221,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
   </li>
@@ -260,153 +265,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/hello-world/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Post created: 2018-11-09 17:02:35" itemprop="dateCreated datePublished" datetime="2018-11-09T17:02:35+08:00">2018-11-09</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -438,11 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/02/如何管理多个Python环境/" itemprop="url">
-                  如何管理多个Python环境
-                </a>
+          <h1 class="post-title" itemprop="name headline">如何管理多个Python环境
               
             
           </h1>
@@ -517,9 +374,7 @@
       
 
       
-        
-          
-            <p><img src="\upload_image\python.jpg" alt="python"></p>
+        <p><img src="\upload_image\python.jpg" alt="python"></p>
 <p>在刚入门Python的时候，踩过无数的坑。仍然记得当时是为了做人脸检测的毕业设计，需要为Tensorflow搭建运行环境，2017年初，在Windows平台上，Tensorflow刚开始支持python3不久，而不少教程的运行环境都是基于Linux的python 2.7，很多名校DL的课程也是如此。博主辗转于操作系统以及python的各种版本之间，不胜其烦，心态几近崩溃。也是从那时开始使用OneNote，记录自己的每次操作，在不断试错之后，终于发现一点门道，但缺乏系统性。偶然在Medium上看到一篇博文，总结的很好。有鉴于此，此片博文旨在为为Python版本管理发愁的小伙伴提供帮助。</p>
 <h2 id="为什么需要管理Python版本，只要最新不行吗？"><a href="#为什么需要管理Python版本，只要最新不行吗？" class="headerlink" title="为什么需要管理Python版本，只要最新不行吗？"></a>为什么需要管理Python版本，只要最新不行吗？</h2><p>当你兴致勃勃地入坑了Python，想要在自己的领域里一展拳脚，于是你安装了Python的最新版本，无论是爬虫、ML、DL，还是GUI、Web前后端，都有很多资源都可利用，可是别人的程序就是在自己的电脑无法运行。仔细纠错终于发现包，python，框架，应用无法兼容，真是让人头大，于是你来到这里。</p>
 <h2 id="选择适合自己的Conda"><a href="#选择适合自己的Conda" class="headerlink" title="选择适合自己的Conda"></a>选择适合自己的Conda</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><p>对于个人开发者，有两种选择：</p>
@@ -617,8 +472,6 @@
 <p><a href="https://djangostars.com/blog/what-is-docker-and-how-to-use-it-with-python/" target="_blank" rel="noopener">What is Docker and How to Use it With Python (Tutorial)</a></p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://medium.freecodecamp.org/why-you-need-python-environments-and-how-to-manage-them-with-conda-85f155f4353c" target="_blank" rel="noopener">Why you need Python environments and how to manage them with Conda</a></p>
 
-          
-        
       
     </div>
 
@@ -638,191 +491,32 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/27/Jupyter-Notebook实用技巧/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/27/Jupyter-Notebook实用技巧/" itemprop="url">
-                  Jupyter Notebooks使用技巧
-                </a>
-              
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
+              <a href="/2018/10/27/Jupyter-Notebook实用技巧/" rel="next" title="Jupyter Notebooks使用技巧">
+                <i class="fa fa-chevron-left"></i> Jupyter Notebooks使用技巧
+              </a>
             
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/11/09/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
             
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              
-                
-              
-
-              <time title="Post created: 2018-10-27 17:02:48 / Updated at: 21:58:26" itemprop="dateCreated datePublished" datetime="2018-10-27T17:02:48+08:00">2018-10-27</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p><img src="/upload_image/halloween.jpg" alt="Halloween" title="Halloween"></p>
-<h1 id="Jupyter-Notebook使用技巧"><a href="#Jupyter-Notebook使用技巧" class="headerlink" title="Jupyter Notebook使用技巧"></a>Jupyter Notebook使用技巧</h1><h2 id="为什么写这篇-？"><a href="#为什么写这篇-？" class="headerlink" title="为什么写这篇 ？"></a>为什么写这篇 ？</h2><p>对于编程工具，我们使用起来当然是越熟练，越得心应手越好。作为攻城狮，熟知我们每天都要使用的工具的各种技巧，可使工作学习效率倍增。</p>
-<p>本文参考 [28 Jupyter Notebook tips, tricks, and shortcuts]（<a href="https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/)。博主从中摘取一些可能经常会用到的命令展示出来，希望对新手入门和高手进阶有所帮助。对于Jupyter" target="_blank" rel="noopener">https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/)。博主从中摘取一些可能经常会用到的命令展示出来，希望对新手入门和高手进阶有所帮助。对于Jupyter</a> Notebook 我们不多做介绍，直接进入正题。</p>
-<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p>查看快捷键菜单有三种方式： </p>
-<ol>
-<li>在菜单栏的最后一项 <code>Help</code> 中选择 <code>Keyboard Shorcuts</code>。</li>
-<li>在命令模式下直接按  <code>H</code>  键。</li>
-<li>使用命令模板，按 <code>Ctrl+Shift+P</code> 可进入命令模板界面。</li>
-</ol>
-<p>例如需要合并单元格时，输入 <code>合并</code> 或者 <code>Merge</code>。（我的界面语言是中文）</p>
-<p><img src="\upload_image\command palette.jpg" alt="command palette"></p>
-<p>以下快捷键我们会经常用到：</p>
-<ul>
-<li><code>ESC</code> 从编辑模式转换到命令模式。</li>
-<li><code>Enter</code> 从命令模式转换到编辑模式。</li>
-</ul>
-<blockquote>
-<p> <strong>Jupyter笔记本有两种不同的键盘输入模式. </strong>编辑模式<strong>允许您将代码或文本输入到一个单元格中，并通过一个绿色的单元格来表示 </strong>命令模式<strong>将键盘与笔记本命令绑定在一起，并通过一个灰色的单元格边界显示，该边框为蓝色的左边框。</strong></p>
-</blockquote>
-<ul>
-<li><p>当处于命令模式时：</p>
-<ol>
-<li>按下<code>A</code>键，在当前单元格上方增加一个<strong>空白单元格</strong>；按下<code>B</code>键，在当前单元格下方增加一个<strong>空白的单元格</strong>。</li>
-<li><code>M</code>键将当前单元格转换为<code>Markdown</code>格式，<code>Y</code>键转换为<code>Code</code>格式。</li>
-<li>按下两次<code>D</code>，删除当前单元格。</li>
-</ol>
-</li>
-<li><p><code>Shift+Tab</code> 查看单元格内某一对象的<code>Docstring</code>。</p>
-</li>
-<li><p>选择多个单元格：</p>
-<ol>
-<li><code>Shift+Up</code>或者<code>Shift+K</code>向上选择多个单元格；<code>Shift+J</code>或者<code>Shift+Down</code>想下选择多个单元格。</li>
-<li>选择多个单元格后，就可成批地删除、复制、粘贴以及运行代码块。</li>
-<li>合并多个单元格使用<code>Shift+M</code>。</li>
-</ol>
-</li>
-</ul>
-<h2 id="变量输出"><a href="#变量输出" class="headerlink" title="变量输出"></a>变量输出</h2><p>一般在单元格中直接输入变量名，运行代码，即可显示变量内容。但是这种情况只对最后一行代码有效。使用一下代码即可显示所有变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from IPython.core.interactiveshell import InteractiveShell</span><br><span class="line">InteractiveShell.ast_node_interactivity = &quot;all&quot;</span><br></pre></td></tr></table></figure></p>
-<p><img src="\upload_image\variable display.jpg" alt="variable display"><br>为了一劳永逸，在<code>~/.ipthon.profile_default/</code>下创建<code>ipython_config.py</code>，在程序中输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c=get_config()</span><br><span class="line"># Run all nodes interactively</span><br><span class="line">c.InteractiveShell.ast_node_interavtivity=&quot;all&quot;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -832,14 +526,15 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -860,8 +555,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -906,6 +610,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要管理Python版本，只要最新不行吗？"><span class="nav-number">1.</span> <span class="nav-text">为什么需要管理Python版本，只要最新不行吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择适合自己的Conda"><span class="nav-number">2.</span> <span class="nav-text">选择适合自己的Conda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-安装"><span class="nav-number">2.1.</span> <span class="nav-text">1.安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Python版本与环境"><span class="nav-number">2.2.</span> <span class="nav-text">2. Python版本与环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anaconda目录结构"><span class="nav-number">3.</span> <span class="nav-text">Anaconda目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理环境：GUI-还是Command-line-Terminal"><span class="nav-number">4.</span> <span class="nav-text">管理环境：GUI 还是Command line(Terminal)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-激活-退出环境"><span class="nav-number">4.1.</span> <span class="nav-text">1. 激活/退出环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-查看Conda版本"><span class="nav-number">4.2.</span> <span class="nav-text">2. 查看Conda版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-查看conda详细信息"><span class="nav-number">4.3.</span> <span class="nav-text">3.  查看conda详细信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理包"><span class="nav-number">5.</span> <span class="nav-text">管理包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-获取包的渠道"><span class="nav-number">5.1.</span> <span class="nav-text">1.  获取包的渠道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-搜索，安装和移除包"><span class="nav-number">5.2.</span> <span class="nav-text">1.  搜索，安装和移除包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-更改Python版本"><span class="nav-number">5.3.</span> <span class="nav-text">3. 更改Python版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-什么时候使用pip"><span class="nav-number">5.4.</span> <span class="nav-text">4. 什么时候使用pip</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关资源推荐（需翻墙）"><span class="nav-number">6.</span> <span class="nav-text">相关资源推荐（需翻墙）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1043,6 +763,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
 
   
 
