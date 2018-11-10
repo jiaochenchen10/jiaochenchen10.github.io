@@ -501,7 +501,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-09 19:20:24" itemprop="dateModified" datetime="2018-11-09T19:20:24+08:00">2018-11-09</time>
+                <time title="修改时间：2018-11-10 17:22:41" itemprop="dateModified" datetime="2018-11-10T17:22:41+08:00">2018-11-10</time>
               
             
           </span>
@@ -535,52 +535,19 @@
 
       
         
-          
-            <p><img src="/upload_image/halloween.jpg" alt="Halloween" title="Halloween"></p>
-<h1 id="Jupyter-Notebook使用技巧"><a href="#Jupyter-Notebook使用技巧" class="headerlink" title="Jupyter Notebook使用技巧"></a>Jupyter Notebook使用技巧</h1><h2 id="为什么写这篇-？"><a href="#为什么写这篇-？" class="headerlink" title="为什么写这篇 ？"></a>为什么写这篇 ？</h2><p>对于编程工具，我们使用起来当然是越熟练，越得心应手越好。作为攻城狮，熟知我们每天都要使用的工具的各种技巧，可使工作学习效率倍增。</p>
-<p>本文参考 [28 Jupyter Notebook tips, tricks, and shortcuts]（<a href="https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/)。博主从中摘取一些可能经常会用到的命令展示出来，希望对新手入门和高手进阶有所帮助。对于Jupyter" target="_blank" rel="noopener">https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/)。博主从中摘取一些可能经常会用到的命令展示出来，希望对新手入门和高手进阶有所帮助。对于Jupyter</a> Notebook 我们不多做介绍，直接进入正题。</p>
-<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p>查看快捷键菜单有三种方式： </p>
-<ol>
-<li>在菜单栏的最后一项 <code>Help</code> 中选择 <code>Keyboard Shorcuts</code>。</li>
-<li>在命令模式下直接按  <code>H</code>  键。</li>
-<li>使用命令模板，按 <code>Ctrl+Shift+P</code> 可进入命令模板界面。</li>
-</ol>
-<p>例如需要合并单元格时，输入 <code>合并</code> 或者 <code>Merge</code>。（我的界面语言是中文）</p>
-<p><img src="\upload_image\command palette.jpg" alt="command palette"></p>
-<p>以下快捷键我们会经常用到：</p>
-<ul>
-<li><code>ESC</code> 从编辑模式转换到命令模式。</li>
-<li><code>Enter</code> 从命令模式转换到编辑模式。</li>
-</ul>
+          <p><img src="/upload_image/halloween.jpg" alt="Halloween" title="Halloween"></p>
 <blockquote>
-<p> <strong>Jupyter笔记本有两种不同的键盘输入模式. </strong>编辑模式<strong>允许您将代码或文本输入到一个单元格中，并通过一个绿色的单元格来表示 </strong>命令模式<strong>将键盘与笔记本命令绑定在一起，并通过一个灰色的单元格边界显示，该边框为蓝色的左边框。</strong></p>
-</blockquote>
-<ul>
-<li><p>当处于命令模式时：</p>
-<ol>
-<li>按下<code>A</code>键，在当前单元格上方增加一个<strong>空白单元格</strong>；按下<code>B</code>键，在当前单元格下方增加一个<strong>空白的单元格</strong>。</li>
-<li><code>M</code>键将当前单元格转换为<code>Markdown</code>格式，<code>Y</code>键转换为<code>Code</code>格式。</li>
-<li>按下两次<code>D</code>，删除当前单元格。</li>
-</ol>
-</li>
-<li><p><code>Shift+Tab</code> 查看单元格内某一对象的<code>Docstring</code>。</p>
-</li>
-<li><p>选择多个单元格：</p>
-<ol>
-<li><code>Shift+Up</code>或者<code>Shift+K</code>向上选择多个单元格；<code>Shift+J</code>或者<code>Shift+Down</code>想下选择多个单元格。</li>
-<li>选择多个单元格后，就可成批地删除、复制、粘贴以及运行代码块。</li>
-<li>合并多个单元格使用<code>Shift+M</code>。</li>
-</ol>
-</li>
-</ul>
-<h2 id="变量输出"><a href="#变量输出" class="headerlink" title="变量输出"></a>变量输出</h2><p>一般在单元格中直接输入变量名，运行代码，即可显示变量内容。但是这种情况只对最后一行代码有效。使用一下代码即可显示所有变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from IPython.core.interactiveshell import InteractiveShell</span><br><span class="line">InteractiveShell.ast_node_interactivity = &quot;all&quot;</span><br></pre></td></tr></table></figure></p>
-<p><img src="\upload_image\variable display.jpg" alt="variable display"><br>为了一劳永逸，在<code>~/.ipthon.profile_default/</code>下创建<code>ipython_config.py</code>，在程序中输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c=get_config()</span><br><span class="line"># Run all nodes interactively</span><br><span class="line">c.InteractiveShell.ast_node_interavtivity=&quot;all&quot;</span><br></pre></td></tr></table></figure>
-
-          
+<p>Jupyter Notebook使用技巧&gt;<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/27/Jupyter-Notebook实用技巧/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></blockquote></div>
 
     
 
