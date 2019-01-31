@@ -299,7 +299,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2019/01/25/RealPython-高效使用函数/" itemprop="url">
-                  RealPython-高效使用函数
+                  RealPython-高效使用函数(一)
                 </a>
               
             
@@ -342,7 +342,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-31 21:36:03" itemprop="dateModified" datetime="2019-01-31T21:36:03+08:00">2019-01-31</time>
+                <time title="修改时间：2019-01-31 22:04:14" itemprop="dateModified" datetime="2019-01-31T22:04:14+08:00">2019-01-31</time>
               
             
           </span>
@@ -376,198 +376,17 @@
 
       
         
-          
-            <h1 id="Python的函数是第一类对象"><a href="#Python的函数是第一类对象" class="headerlink" title="Python的函数是第一类对象"></a>Python的函数是第一类对象</h1><p>Python所定义的函数属于第一类对象，那什么是第一类对象呢？</p>
+          <p><img src="\upload_image\stone.jpg" alt="stonef"></p>
 <blockquote>
-<p>“第一类对象”这一名称最早由<a href="https://zh.wikipedia.org/wiki/%E5%85%8B%E9%87%8C%E6%96%AF%E6%89%98%E5%BC%97%C2%B7%E6%96%AF%E7%89%B9%E9%9B%B7%E5%A5%87" target="_blank" rel="noopener">克里斯托弗·斯特雷奇</a>在1960年代发明。第一类对象(first-class object)与面向对象编程(oriented-object programming)中的概念并没有什么严密的关系，它可以指程序中的任何实体。一般第一类对象所特有的特性为：</p>
-<ol>
-<li>可以将其存入变量或其他数据结构</li>
-<li>可以将其作为参数传递给别的函数</li>
-<li>可以将其作为函数的返回值</li>
-<li>可以在执行期间创造，而无需完全在设计期全部写出</li>
-<li>即使没有被系结至某一变量或名称，也可以存在</li>
-</ol>
-<p>绝大多数语言中，数值与基础型别都是第一类对象，然而不同语言中对函数的区别很大，例如<a href="https://zh.wikipedia.org/wiki/C%E8%AA%9E%E8%A8%80" target="_blank" rel="noopener">C语言</a>与<a href="https://zh.wikipedia.org/wiki/C%2B%2B" target="_blank" rel="noopener">C++</a>中的函数不是第一类对象，因为在这些语言中函数不能在<a href="https://zh.wikipedia.org/wiki/%E5%9F%B7%E8%A1%8C%E6%9C%9F" target="_blank" rel="noopener">执行期</a>创造，而必须在设计时全部写好。</p>
+<p>关于Python函数的基础</p>
 </blockquote>
-<p>掌握这一概念有助于<code>lambda</code>，<code>decorator</code>以及<code>函数式编程</code>的理解和使用。为了一一说明Python中所定义的函数所具有的第一类对象特性，接下来所使用的例子都将以<code>yell</code>这个函数为基础进行拓展。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">yell</span><span class="params">(text)</span>:</span></span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	返回输入字符串的大写格式。</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line">	<span class="keyword">return</span> text.upper() + <span class="string">'!'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>yell(<span class="string">'hello'</span>)</span><br><span class="line"><span class="string">'HELLO!'</span></span><br></pre></td></tr></table></figure>
-<h2 id="函数即是对象"><a href="#函数即是对象" class="headerlink" title="函数即是对象"></a>函数即是对象</h2><p>在Python中，一切皆对象。字符串，列表，模块等都是对象，函数也不例外。</p>
-<p>yell既然作为python中的对象，就可以将其赋值给另一个变量。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>bark = yell</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bark(<span class="string">'woof'</span>)</span><br><span class="line"><span class="string">'WOOF'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>id(bark) == id(yell)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
-<p>这里赋值语句进行的操作是为函数创建另一个引用名称，两个引用名称指向的是内存中的同一块地址。函数对象本身和函数名(或者说函数的引用)可以看做一个事物内部两个独立的部分，我们可以用语句删除其中一个<code>yell</code>，而<code>bark</code>仍然指向之前定义的函数，<code>bark</code>可以正常调用。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> yell</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>yell(<span class="string">'hello'</span>)</span><br><span class="line">NameError: <span class="string">"name 'yell' is not defined"</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>bark(<span class="string">'hey'</span>)</span><br><span class="line"><span class="string">'HEY!'</span></span><br></pre></td></tr></table></figure>
-<h2 id="函数可以存入其他数据结构中"><a href="#函数可以存入其他数据结构中" class="headerlink" title="函数可以存入其他数据结构中"></a>函数可以存入其他数据结构中</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>funcs = [bark, str.lower, str.capitalize]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>funcs</span><br><span class="line">[&lt;function __main__.yell(text)&gt;,</span><br><span class="line"> &lt;method <span class="string">'lower'</span> of <span class="string">'str'</span> objects&gt;,</span><br><span class="line"> &lt;method <span class="string">'capitalize'</span> of <span class="string">'str'</span> objects&gt;]</span><br></pre></td></tr></table></figure>
-<p>访问存储在列表中的函数对象与访问列表元素并无二致。甚至可以直接通过索引访问到函数。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> f <span class="keyword">in</span> funcs:</span><br><span class="line">    	print(f, f(<span class="string">'hey there'</span>))</span><br><span class="line">&lt;function yell at <span class="number">0x000001CEDA214AE8</span>&gt; HEY THERE!</span><br><span class="line">&lt;method <span class="string">'lower'</span> of <span class="string">'str'</span> objects&gt; hey there</span><br><span class="line">&lt;method <span class="string">'capitalize'</span> of <span class="string">'str'</span> objects&gt; Hey there</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>funcs[<span class="number">0</span>](<span class="string">'heyha'</span>)</span><br><span class="line"><span class="string">'HEYHO!'</span></span><br></pre></td></tr></table></figure>
-<h2 id="函数对象本身作为参数传递给别的函数"><a href="#函数对象本身作为参数传递给别的函数" class="headerlink" title="函数对象本身作为参数传递给别的函数"></a>函数对象本身作为参数传递给别的函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">greet</span><span class="params">(func)</span>:</span></span><br><span class="line">    greeting = func(<span class="string">'Hi, I am a Python program'</span>)</span><br><span class="line">    print(greeting)</span><br><span class="line">    </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>greet(bark)</span><br><span class="line"><span class="string">'HI, I AM A PYTHON PROGRAM'</span></span><br></pre></td></tr></table></figure>
-<p>我们定义了<code>greet</code>函数，<code>greet</code>以其他函数的引用作为参数，并在<code>greet</code>内部调用其他函数，并打印函数调用后的结果。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(map(bark, [<span class="string">'hello'</span>, <span class="string">'hey'</span>, <span class="string">'hi'</span>]))</span><br><span class="line">[<span class="string">'HELLO'</span>, <span class="string">'HEY'</span>, <span class="string">'HI'</span>]</span><br></pre></td></tr></table></figure>
-<p>以其他函数为参数的函数又称为高阶函数，<code>Python</code>内建函数中最典型的高阶函数就是<code>map</code>，<code>map</code>接收一个函数引用和一个可迭代的参数列表，返回函数在每个参数上的掉调用结果。</p>
-<h2 id="嵌套函数"><a href="#嵌套函数" class="headerlink" title="嵌套函数"></a>嵌套函数</h2><p>顾名思义，嵌套函数即在函数内部再次定义了函数，而通常情况下，外部函数会返回内部函数的引用，或者返回调用内部函数后的结果。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">speak</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">whisper</span><span class="params">(t)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> t.lower() + <span class="string">'...'</span></span><br><span class="line">    <span class="keyword">return</span> whisper(text)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>speak(<span class="string">'Hello World'</span>)</span><br><span class="line"><span class="string">'hello world...'</span></span><br></pre></td></tr></table></figure>
-<p>聪明如你，容易看出内部函数的生存期仅限于当我们调用外部函数时。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>whisper(<span class="string">'Yo'</span>)</span><br><span class="line">NameError: <span class="string">"name 'whisper is not defined"</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>speak.whisper</span><br><span class="line">AttributeError: <span class="string">" 'function' object has no attribute 'whisper' "</span></span><br></pre></td></tr></table></figure>
-<p>内部函数无法直接访问，除非我们在外部函数块中返回内部函数的引用。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_speak_func</span><span class="params">(volume)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">whisper</span><span class="params">(text)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> text.lower() + <span class="string">'...'</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">yell</span><span class="params">(text)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> text.upper() + <span class="string">'!'</span></span><br><span class="line">    <span class="keyword">if</span> volume &gt; <span class="number">0.5</span>:</span><br><span class="line">        <span class="keyword">return</span> yell</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> whisper</span><br></pre></td></tr></table></figure>
-<p>函数<code>get_speak_func</code>并未调用任何内部函数，它仅仅根据参数<code>volumn</code>大小返回指定的某个内部函数，即返回了某种行为或者动作，而非内容。既然返回了某个函数，就可以直接调用这个函数，或者将其赋值给变量。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>get_speak_func(<span class="number">0.3</span>)</span><br><span class="line">&lt;function __main__.get_speak_func.&lt;locals&gt;.whisper&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>get_speak_func(<span class="number">0.7</span>)</span><br><span class="line">&lt;function __main__.get_speak_func.&lt;locals&gt;.yell&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>speak_func = get_speak_func(<span class="number">0.7</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>speak_func(<span class="string">'Hello'</span>)</span><br><span class="line"><span class="string">'HELLO!'</span></span><br></pre></td></tr></table></figure>
-<p>稍作总结，如果函数的定义是为了实现某种功能，那么别的函数可以通过参数传递的方法获得这种功能，也可以将其定义在自己内部返回这项功能。</p>
-<h2 id="函数可以记录局部状态"><a href="#函数可以记录局部状态" class="headerlink" title="函数可以记录局部状态"></a>函数可以记录局部状态</h2><p>所谓记录局部状态，就是处于外部函数作用域中的变量，可以被内部函数捕捉到。将之前的<code>get_speak_func</code>函数稍作修改：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_speak_func</span><span class="params">(text,volume)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">whisper</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> text.lower() + <span class="string">'...'</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">yell</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">return</span> text.upper() + <span class="string">'!'</span></span><br><span class="line">    <span class="keyword">if</span> volume &gt; <span class="number">0.5</span>:</span><br><span class="line">        <span class="keyword">return</span> yell</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> whisper</span><br><span class="line">    </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>get_speak_func(<span class="string">'hello world'</span>, <span class="number">0.7</span>)()</span><br><span class="line"><span class="string">'HELLO WORLD!'</span></span><br></pre></td></tr></table></figure>
-<p>注意到内部函数<code>whisper</code>和<code>yell</code>并没有接受任何参数，但是却可以使用外部函数的参数<code>text</code>。这种内部函数可以使用外部函数参数的行为称作语法闭包（注意：这里内部只能使用外部函数的参数变量，而不能使用外部函数块内定义的变量）。语法闭包有什么用处呢？之前提到过，嵌套函数可以用来返回某种行为或功能，而语法闭包则可以让程序对这种行为或功能进行多种配置。在下面这个例子中，利用<code>make_adder</code>可以制造多个加法函数。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_adder</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> x+n</span><br><span class="line">    <span class="keyword">return</span> add</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plus_3 = make_adder(<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plus_3(<span class="number">4</span>)</span><br><span class="line"><span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plus_5 = make_adder(<span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pluse_5(<span class="number">4</span>)</span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
-<h2 id="OPP中的对象也能像函数那样使用"><a href="#OPP中的对象也能像函数那样使用" class="headerlink" title="OPP中的对象也能像函数那样使用"></a>OPP中的对象也能像函数那样使用</h2><p>所有的函数都是对象，但是反之不一定成立。OPP中的对象并非函数，但是通过定义<code>__call__(self,)</code>，却可以使其像函数那样可调用<strong>(callable)</strong>。将对象实例作为函数调用，会自动调用函数<code>__call__</code>。我们可以通过函数<code>callable</code>检查某个对象是否可以调用。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adder</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,n)</span>:</span></span><br><span class="line">        self.n = n</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.n+x</span><br><span class="line">    </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plus_3 = Adder(<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>plus_3(<span class="number">4</span>)</span><br><span class="line"><span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>callable(pluse_3)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line">&gt;&gt;&gt;&gt; callable(yell)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>callable(<span class="string">'hello'</span>)</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>一切皆对象，函数也不例外。我们可以将其赋值给某个变量，将其存储在某种数据结构中，将其传递给其他函数，或从其他函数返回。</li>
-<li>利用第一类对象函数，我们可以抽象出，并传递某种行为或功能。</li>
-<li>函数也可以嵌套，内部函数可以记录外部函数参数的状态，此种用法成为闭包。</li>
-<li>对象也可以被调用，即可以像函数那样被调用。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jiaochenchen10.github.io/2018/11/30/Git-学习笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WHITEWINGS">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/30/Git-学习笔记/" itemprop="url">
-                  anzhuangjiaocheng
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-30 09:52:17 / 修改时间：22:16:36" itemprop="dateCreated datePublished" datetime="2018-11-30T09:52:17+08:00">2018-11-30</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Install-Ubuntu-system-dependecies"><a href="#Install-Ubuntu-system-dependecies" class="headerlink" title="Install Ubuntu system dependecies"></a>Install Ubuntu system dependecies</h1><p>The purpose of this step is to prepare our system with the dependencies necessary for OpenCV.<br>To start, open up our command line and update the <code>apt-get</code> package manager to refresh and upgrade and preinstalled packages or libraries.<br><code>apt-get update</code> doesn’t actually install new versions of software. Instead, it updates the package lists for upgrades for packages that need upgrading, as well as new packages that have just come to the repositories.<br>它更新的是需要即将被更新的包的信息列表。<br><code>apt-get upgrade</code> will fetch new versions of packages existing on the machine if APT knows about these newversion by way of  <code>apt-get update</code>.<br><code>apt-get dist-upgrade</code> will do the same job which is done by <code>apt-get upgrade</code>, plus it will also intelligently handle the dependencies, so it might remove obsolete packages or add new ones.<br>假如家里要购买新的生活用具，<code>apt-get update</code>就好比对需要购买的用品列了一份清单，<code>apt-get upgrade</code>就是拿着这份清单去超市购买，<code>apt-get dist-upgrade</code>不仅会把新的买回来，还会把破旧的用具扔掉。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get upgrade</span><br></pre></td></tr></table></figure></p>
-<p>We’ll also need to install some developer tools as well as prerequisites required for image and video I/O, optimization, and creating plots/visualizations.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install build-essential cmake git unzip pkg-config</span><br><span class="line">$ sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev</span><br><span class="line">$ sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev</span><br><span class="line">$ sudo apt-get install libxvidcore-dev libx264-dev</span><br><span class="line">$ sudo apt-get install libgtk-3-dev</span><br><span class="line">$ sudo apt-get install libhdf5-serial-dev graphviz</span><br><span class="line">$ sudo apt-get install libopenblas-dev libatlas-base-dev gfortran</span><br><span class="line">$ sudo apt-get install python-tk python3-tk python-imaging-tk</span><br></pre></td></tr></table></figure></p>
-<p>We’ll wrap up Step #1 by installing the Python development headers and libraries for Python 3.5.<br><code>`</code><br>$ sudo apt-get install python3-dev</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/25/RealPython-高效使用函数/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -965,7 +784,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
