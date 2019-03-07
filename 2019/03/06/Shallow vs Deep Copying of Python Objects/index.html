@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Python对象的深复制与浅复制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shallow VS Deep Copying of Python Objects">
+<meta property="og:url" content="https://jiaochenchen10.github.io/2019/03/06/Shallow vs Deep Copying of Python Objects/index.html">
+<meta property="og:site_name" content="WHITEWINGS">
+<meta property="og:description" content="Python对象的深复制与浅复制">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://jiaochenchen10.github.io/upload_image/pythonshallow.jpg">
+<meta property="og:updated_time" content="2019-03-07T02:21:18.972Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shallow VS Deep Copying of Python Objects">
+<meta name="twitter:description" content="Python对象的深复制与浅复制">
+<meta name="twitter:image" content="https://jiaochenchen10.github.io/upload_image/pythonshallow.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://jiaochenchen10.github.io/2019/03/06/Shallow vs Deep Copying of Python Objects/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Shallow VS Deep Copying of Python Objects | WHITEWINGS</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/jiaochenchen10"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WHITEWINGS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jiaochenchen10.github.io/2019/03/06/Shallow vs Deep Copying of Python Objects/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WHITEWINGS">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Shallow VS Deep Copying of Python Objects
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-06 21:10:19" itemprop="dateCreated datePublished" datetime="2019-03-06T21:10:19+08:00">2019-03-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-07 10:21:18" itemprop="dateModified" datetime="2019-03-07T10:21:18+08:00">2019-03-07</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="\upload_image\pythonshallow.jpg" alt="image.png"></p>
+<blockquote>
+<p>Python对象的深复制与浅复制</p>
+</blockquote>
+<a id="more"></a>
+<p>图片来源：<a href="https://realpython.com/copying-python-objects/" target="_blank" rel="noopener">https://realpython.com/copying-python-objects/</a></p>
+<p>本文参考于<a href="https://realpython.com/copying-python-objects/" target="_blank" rel="noopener">RealPython</a></p>
+<p>在Python中使用赋值语句为一个对象赋予名称时，亦或是通过赋值语句更改一个已创建对象的内容时，并未产生任何的复制操作，此时仅仅将变量名称与相应的对象进行绑定，或者理解为有个指针指向了创建的对象。</p>
+<p>对于不可变类型(<code>tuple, str, frozenset</code>)，修改他们会总会开辟新的内存空间，赋值即为复制，因此可说浅复制和深复制在不可变类型上是一样的（或者说只有深复制）。而对于可变类型(<code>list, dictionary， set</code>)，浅复制和深复制就有所区别。</p>
+<p>在编写代码时，我们可能需要创建一个对象的副本，在副本上动动手脚，做做实验，而不希望改变原对象。那么如何做到这一点呢？</p>
+<p>先以创建Python内置的可变类型的副本为例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new_list = list(original_list)</span><br><span class="line">new_dict = dict(original_dict)</span><br><span class="line">new_set = set(original_set)</span><br></pre></td></tr></table></figure></p>
+<p> 使用这种方法只会进行对象的浅复制，而且也无法对用户自定义的对象进行复制。<br> 我们先来看看深浅复制各自的定义。</p>
+<blockquote>
+<ul>
+<li>A <strong>shallow copy</strong> means constructing a new collection object and then populating it with references to the child objects found in the original. In essence, a shallow copy is only one level deep. The copying process does not recurse and therefore won’t create copies of the child objects themselves. </li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>A <strong>deep copy</strong> makes the copying process recursive. It means first constructing a new collection object and then recursively populating it with copies of the child objects found in the original. Copying an object this way walks the whole object tree to create a fully independent clone of the original object and all of its children.</li>
+</ul>
+</blockquote>
+<p><strong>简言之，浅复制仅针对对象的外围进行复制，深复制会对由表及里地对对象进行复制，实质上，深复制是不断递归地进行浅复制。从最终的效果来看，浅复制产生的对象与原对象纠缠不清，深复制产生的对象相对于原对象完全对立，各自占有各自的内存空间，互相独立。</strong></p>
+<hr>
+<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><h3 id="如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。"><a href="#如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。" class="headerlink" title="如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。"></a>如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">b = list(a) <span class="comment"># 或 b = a[:]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id(a) == id(b）</span><br></pre></td></tr></table></figure>
+<pre><code>False
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a.append(<span class="number">10</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br></pre></td></tr></table></figure>
+<pre><code>[1, 2, 3, 4, 10]
+[1, 2, 3, 4]
+</code></pre><h3 id="再拿嵌套的列表为例："><a href="#再拿嵌套的列表为例：" class="headerlink" title="再拿嵌套的列表为例："></a>再拿嵌套的列表为例：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = [[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]]</span><br><span class="line">y = list(x) <span class="comment">#  y = x[:] 亦可</span></span><br><span class="line">print(<span class="string">"The value of x is:"</span>,x)</span><br><span class="line">print(<span class="string">"The value of y is:"</span>,y)</span><br></pre></td></tr></table></figure>
+<pre><code>The value of x is: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+The value of y is: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+</code></pre><p>为了验证x和y是否独立，我们对<code>x</code>做一些修改，看是否会影响到<code>y</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x.append([<span class="string">"new element"</span>])</span><br><span class="line">print(<span class="string">"The value of x is:"</span>,x)</span><br><span class="line">print(<span class="string">"The value of y is:"</span>,y)</span><br></pre></td></tr></table></figure>
+<pre><code>The value of x is: [[1, 2, 3], [4, 5, 6], [7, 8, 9], [&apos;new element&apos;]]
+The value of y is: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id(x[<span class="number">1</span>][<span class="number">0</span>]) == id(y[<span class="number">1</span>][<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>True
+</code></pre><p>从表面来看，修改x并未影响到y，但**这是因为我们并没有修改内部对象。</p>
+<p><code>y</code>仅仅是<code>x</code>的外围复制，对于存储在<code>x</code>内部的子类对象（即内部的三个列表元素），其实是与<code>y</code>所包含的子类对象是共享的,其引用指向内存的同一块地址。**如果我们修改<code>x</code>的内部列表元素（即修改<code>x</code>的子对象），看看会发生什么。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x[<span class="number">1</span>][<span class="number">0</span>] = <span class="string">'second change'</span></span><br><span class="line">print(<span class="string">"The value of x is:"</span>,x)</span><br><span class="line">print(<span class="string">"The value of y is:"</span>,y)</span><br></pre></td></tr></table></figure>
+<pre><code>The value of x is: [[1, 2, 3], [&apos;second change&apos;, 5, 6], [7, 8, 9], [&apos;new element&apos;]]
+The value of y is: [[1, 2, 3], [&apos;second change&apos;, 5, 6], [7, 8, 9]]
+</code></pre><p>在这个例子中，虽然我们仅仅对<code>x</code>做改变，但相信聪明的你能发现，如果改变<code>y</code>, <code>x</code>也会跟着变化。<br>这就是浅复制和深复制的不同所在。</p>
+<ol>
+<li><p>那么如何创建对象的深复制呢？</p>
+</li>
+<li><p>又如何创建自定义对象的深复制和浅复制呢？</p>
+</li>
+</ol>
+<p><strong>Python的标准库提供<code>copy</code>模块，使用此模块提供的方法即可随意进行浅复制和深复制操作。</strong></p>
+<h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> copy</span><br><span class="line">x = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]]</span><br><span class="line">z = copy.deepcopy(x)</span><br><span class="line">x[<span class="number">1</span>][<span class="number">0</span>] = <span class="string">"new element"</span></span><br><span class="line">print(<span class="string">"The value of x:"</span>,x)</span><br><span class="line">print(<span class="string">"The value of z:"</span>,z)</span><br></pre></td></tr></table></figure>
+<pre><code>The value of x: [[1, 2, 3], [&apos;new element&apos;, 5, 6], [7, 8, 9]]
+The value of z: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+</code></pre><p>在这个例子中，使用<code>copy.deepcopy()</code>方法的到的副本，与原对象完全独立，无论如何改变，也不会影响原对象。另外，<code>copy</code>模块提供了<code>copy.copy()</code>来创建对象的浅复制。</p>
+<h1 id="复制用户自定义创建的对象"><a href="#复制用户自定义创建的对象" class="headerlink" title="复制用户自定义创建的对象"></a>复制用户自定义创建的对象</h1><p>首先定义一个二维平面的点类，初始化方法接受两个参数，坐标x和坐标y。</p>
+<p>实例化一个点对象，再对其进行浅复制。</p>
+<p>用<code>is()</code>判断是否为同一对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        self.x = [x]</span><br><span class="line">        self.y = [y]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">f"Point(<span class="subst">&#123;self.x!r&#125;</span>, <span class="subst">&#123;self.y!r&#125;</span>)"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p1 = Point(<span class="number">24</span>, <span class="number">52</span>)</span><br><span class="line">p2= copy.copy(p1)</span><br><span class="line">print(p1)</span><br><span class="line">print(p2)</span><br><span class="line">p1 <span class="keyword">is</span> p2</span><br></pre></td></tr></table></figure>
+<pre><code>Point([24], [52])
+Point([24], [52])
+False
+</code></pre><p>由于没有子对象，此处浅复制即深复制。</p>
+<p>为了实现对象的嵌套，我们需要再定义一个矩形类，初始化参数为Point的两个对象，分别作为矩形的左上角和右下角坐标。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, topleft, bottomright)</span>:</span></span><br><span class="line">        self.topleft = topleft</span><br><span class="line">        self.bottomright = bottomright</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> (<span class="string">f"Rectangle(<span class="subst">&#123;self.topleft!r&#125;</span>, <span class="subst">&#123;self.bottomright!r&#125;</span>)"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rect1 = Rectangle(Point(<span class="number">0</span>, <span class="number">1</span>), Point(<span class="number">5</span>, <span class="number">6</span>))</span><br><span class="line">rect2 = copy.copy(rect1)</span><br><span class="line">print(rect1)</span><br><span class="line">print(rect2)</span><br><span class="line">rect1 <span class="keyword">is</span> rect2</span><br></pre></td></tr></table></figure>
+<pre><code>Rectangle(Point([0], [1]), Point([5], [6]))
+Rectangle(Point([0], [1]), Point([5], [6]))
+False
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rect2.topleft.x = <span class="number">100</span></span><br><span class="line">print(rect1)</span><br><span class="line">print(rect2)</span><br></pre></td></tr></table></figure>
+<pre><code>Rectangle(Point(100, [1]), Point([5], [6]))
+Rectangle(Point(100, [1]), Point([5], [6]))
+</code></pre><p>显而易见，浅复制并未复制原对象的所包含的子对象。再看看关于深复制的程序。</p>
+<p>关于复制还有更多的内容可以挖掘，参考<a href="https://docs.python.org/3/library/copy.html" target="_blank" rel="noopener">copy module documentation</a>。例如，我们可以通过定义<code>__copy__()</code>和<code>__deepcopy__()</code>方法来决定对象在被复制时是深复制还是浅复制。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rect3 = copy.deepcopy(rect1)</span><br><span class="line">rect3.topleft.x = <span class="number">333</span></span><br><span class="line">print(rect1)</span><br><span class="line">print(rect3)</span><br></pre></td></tr></table></figure>
+<pre><code>Rectangle(Point(100, [1]), Point([5], [6]))
+Rectangle(Point(333, [1]), Point([5], [6]))
+</code></pre><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>浅复制不会对对象所包含的子对象进行复制，因此对象副本并未完全独立于原对象。</li>
+<li>深复制会进入原对象内部逐一进行复制，此时得到的副本完全独立于原对象，因此深复制会消耗更多的时间。</li>
+<li>通过Python内置的<code>copy</code>模块我们可以复制任意对象。</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/25/RealPython-高效使用函数/" rel="next" title="Effective Functions">
+                <i class="fa fa-chevron-left"></i> Effective Functions
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#浅复制"><span class="nav-number">1.</span> <span class="nav-text">浅复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。"><span class="nav-number">1.0.1.</span> <span class="nav-text">如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再拿嵌套的列表为例："><span class="nav-number">1.0.2.</span> <span class="nav-text">再拿嵌套的列表为例：</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#深复制"><span class="nav-number">2.</span> <span class="nav-text">深复制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复制用户自定义创建的对象"><span class="nav-number">3.</span> <span class="nav-text">复制用户自定义创建的对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Pisces</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
