@@ -116,7 +116,7 @@
 <meta property="og:description" content="Python对象的深复制与浅复制">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://jiaochenchen10.github.io/upload_image/pythonshallow.jpg">
-<meta property="og:updated_time" content="2019-03-06T13:28:38.562Z">
+<meta property="og:updated_time" content="2019-03-07T02:13:38.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shallow VS Deep Copying of Python Objects">
 <meta name="twitter:description" content="Python对象的深复制与浅复制">
@@ -343,7 +343,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-06 21:28:38" itemprop="dateModified" datetime="2019-03-06T21:28:38+08:00">2019-03-06</time>
+                <time title="修改时间：2019-03-07 10:13:38" itemprop="dateModified" datetime="2019-03-07T10:13:38+08:00">2019-03-07</time>
               
             
           </span>
@@ -401,7 +401,7 @@
 <p><strong>简言之，浅复制仅针对对象的外围进行复制，深复制会对由表及里地对对象进行复制，实质上，深复制是不断递归地进行浅复制。从最终的效果来看，浅复制产生的对象与原对象纠缠不清，深复制产生的对象相对于原对象完全对立，各自占有各自的内存空间，互相独立。</strong></p>
 <hr>
 <h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><h3 id="如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。"><a href="#如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。" class="headerlink" title="如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。"></a>如果对象比较简单，无内部对象或者无子对象，浅复制即深复制，对象与对象副本是独立的。</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">b = list(a) <span class="comment"># 或 b = a[:]</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id(a) == id(b)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id(a) == id(b）</span><br></pre></td></tr></table></figure>
 <pre><code>False
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a.append(<span class="number">10</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(b)</span><br></pre></td></tr></table></figure>
 <pre><code>[1, 2, 3, 4, 10]
@@ -439,11 +439,6 @@ The value of z: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p1 = Point(<span class="number">24</span>, <span class="number">52</span>)</span><br><span class="line">p2= copy.copy(p1)</span><br><span class="line">print(p1)</span><br><span class="line">print(p2)</span><br><span class="line">p1 <span class="keyword">is</span> p2</span><br></pre></td></tr></table></figure>
 <pre><code>Point([24], [52])
 Point([24], [52])
-
-
-
-
-
 False
 </code></pre><p>由于没有子对象，此处浅复制即深复制。</p>
 <p>为了实现对象的嵌套，我们需要再定义一个矩形类，初始化参数为Point的两个对象，分别作为矩形的左上角和右下角坐标。</p>
@@ -451,11 +446,6 @@ False
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rect1 = Rectangle(Point(<span class="number">0</span>, <span class="number">1</span>), Point(<span class="number">5</span>, <span class="number">6</span>))</span><br><span class="line">rect2 = copy.copy(rect1)</span><br><span class="line">print(rect1)</span><br><span class="line">print(rect2)</span><br><span class="line">rect1 <span class="keyword">is</span> rect2</span><br></pre></td></tr></table></figure>
 <pre><code>Rectangle(Point([0], [1]), Point([5], [6]))
 Rectangle(Point([0], [1]), Point([5], [6]))
-
-
-
-
-
 False
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rect2.topleft.x = <span class="number">100</span></span><br><span class="line">print(rect1)</span><br><span class="line">print(rect2)</span><br></pre></td></tr></table></figure>
 <pre><code>Rectangle(Point(100, [1]), Point([5], [6]))
